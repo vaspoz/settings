@@ -64,7 +64,7 @@ alias ls='ls -Gp'
 
 # Custom aliases
 alias reload='source ~/.bash_profile && source ~/.bashrc'
-alias ls='ls -hp'
+alias ls='ls -hp --group-directories-first'
 alias ll='pwd && ls -l'
 alias la='ls -la'
 alias l='ls -CF'
@@ -81,52 +81,13 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias where="pwd"
 alias h='history'
-alias ppath="echo $PATH | tr ':' '\n'" #print path
+alias ppath="echo $PATH | tr ':' '\n'" 
 alias untar="tar -xvf"
-alias awsui="ssh -i /Users/vaspoz/aws/LightsailDefaultKey-eu-central-1.pem ec2-user@3.126.219.208"
 alias py="python3"
+alias tf="terraform"
 
-# CUSTOM COMMAND PROMPT
-# ~~~~~~~~~~~~~~~~~~~~~
-# From here down is the code for our custom command prompt
-
-# First printed line in terminal. This only prints once, each time you log into
-# a session on the command line.
-printf "\n$txtblu%s @ $txtblu%s $txtpur%s\n$txtrst" "$USER" "$PWD"
-
-# This prints our prompt lines—PS1 is for single-line prompts, while PS2 is for multi-line.
-PS1=' \[\e[1;33m\]~~ \[\e[1;31m\]'
-PS2=' \[\e[1;33m\]~+ \[\e[1;31m\]'
-
-# This function will run before any command is executed. Since we're colorizing various
-# commands, we're using this function to set the text color back to default before every prompt.
-function PreCommand() {
-  if [ -z "$AT_PROMPT" ]; then
-    return
-  fi
-  unset AT_PROMPT
-
-  # Set color back to default (aka: reset)
-  echo "$(tput sgr0)"
+function awsprofile {
+	export AWS_PROFILE=$1
 }
-trap "PreCommand" DEBUG
 
-# This will run after the execution of the previous full command line.
-FIRST_PROMPT=1
 
-function PostCommand()
-{
-  #Set terminal tab titles.
-  echo -n -e "\033]0;${PWD##*/}\007"
-
-  AT_PROMPT=1
-
-  if [ -n "$FIRST_PROMPT" ]; then
-    unset FIRST_PROMPT
-    return
-  fi
-
-  # This prints the line of info that appears before each actual prompt.
-  printf "\n$txtblu%s @ $txtblu%s $txtpur%s\n$txtrst" "$USER" "$PWD"
-}
-PROMPT_COMMAND="PostCommand"
