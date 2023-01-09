@@ -85,9 +85,21 @@ alias ppath="echo $PATH | tr ':' '\n'"
 alias untar="tar -xvf"
 alias py="python3"
 alias tf="terraform"
+alias myip="curl ipinfo.io/ip"
+alias gcommit="git add . && npx commitgpt"
 
 function awsprofile {
 	export AWS_PROFILE=$1
 }
 
+function awsshell {
+    export AWS_CLI_AUTO_PROMPT=$1
+}
+
+function tfa() {
+	terraform $1 -auto-approve
+}
+
+
+eval "$(starship init bash)"
 
