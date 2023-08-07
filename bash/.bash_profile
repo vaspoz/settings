@@ -39,7 +39,7 @@ txtrst='\e[0m'    # Text Reset
 
 # Colorized aliases
 # Basic log
-alias log="printf '$bldcyn' && git log --pretty=format:'%D' -1 && git log --pretty=format:'%C(green)%h%Creset ≁ %C(yellow)%>(12,trunc)%cr%C(white) %>(11,trunc)%an%C(green) ⟹  %C(blue) %s' --abbrev-commit --date=relative" 
+alias log="printf '$bldcyn' && git log --pretty=format:'%D' -1 && git log --pretty=format:'%C(green)%h%Creset ≁ %C(yellow)%>(12,trunc)%cr%C(white) %>(11,trunc)%an%C(green) ⟹  %C(blue) %s' --abbrev-commit --date=relative"
 
 # Basic log with graph
 alias logg="printf '$bldcyn' && git log --pretty=format:'%D' -1 && git log --graph --pretty=format:'%C(green)%h%Creset ≁ %C(yellow)%>(12,trunc)%cr%C(white) %>(11,trunc)%an%C(green) ⟹  %C(blue) %s' --abbrev-commit --date=relative"
@@ -57,7 +57,7 @@ alias logm="printf '$bldcyn' && git log --pretty=format:'%D' -1 && git log --for
 alias refs="printf '$bldcyn' && git show-ref --abbrev && printf '$txtrst'"
 
 # Show remote refs and urls
-alias remotes="printf '$txtpur' && git remote -v && printf '$bldcyn\n' && git branch -r --no-color && printf '$txtrst'" 
+alias remotes="printf '$txtpur' && git remote -v && printf '$bldcyn\n' && git branch -r --no-color && printf '$txtrst'"
 
 # Alias for colorized -ls command
 alias ls='ls -Gp'
@@ -81,7 +81,7 @@ alias cp='cp -i'
 alias mv='mv -i'
 alias where="pwd"
 alias h='history'
-alias ppath="echo $PATH | tr ':' '\n'" 
+alias ppath="echo $PATH | tr ':' '\n'"
 alias untar="tar -xvf"
 alias py="python3"
 alias tf="terraform"
@@ -94,22 +94,13 @@ function awsprofile {
 }
 
 function awsshell {
-    export AWS_CLI_AUTO_PROMPT=$1
+	export AWS_CLI_AUTO_PROMPT=$1
 }
 
 function tfa() {
 	terraform $1 -auto-approve
 }
 
-function tf-dev() {
-	terraform $1 -var-file="dev.tfvars"
-}
-
-function tfa-dev() {
-	terraform $1 -auto-approve -var-file="dev.tfvars"
-}
-
 eval "$(starship init bash)"
-
 
 alias assume="source assume"
