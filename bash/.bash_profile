@@ -86,7 +86,8 @@ alias untar="tar -xvf"
 alias py="python3"
 alias tf="terraform"
 alias myip="curl ipinfo.io/ip"
-alias gcommit="git add . && npx commitgpt"
+alias gcommit="git add . && aicommits --generate 4"
+alias k="kubectl"
 
 function awsprofile {
 	export AWS_PROFILE=$1
@@ -100,6 +101,15 @@ function tfa() {
 	terraform $1 -auto-approve
 }
 
+function tf-dev() {
+	terraform $1 -var-file="dev.tfvars"
+}
+
+function tfa-dev() {
+	terraform $1 -auto-approve -var-file="dev.tfvars"
+}
 
 eval "$(starship init bash)"
 
+
+alias assume="source assume"
