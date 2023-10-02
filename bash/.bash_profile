@@ -104,3 +104,4 @@ function tfa() {
 eval "$(starship init bash)"
 
 alias assume="source assume"
+source bash_completion
