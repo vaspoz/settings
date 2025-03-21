@@ -1,13 +1,14 @@
-source ~/.bashrc
+# source ~/.bashrc
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Enable colors for the bash -ls command
 export CLICOLOR=1
 export LSCOLORS="ExfxcxdxExegDxabagacDx"
-export KUBE_EDITOR="code --wait"
+export KUBE_EDITOR="cursor --wait"
 
 # Configure terminal formatting colors & styles
 txtblk='\e[0;30m' # Black - Regular
-txtred='\e[0;31m' # Red
+txtred='\e[0;31m' # Red4d9zzvbt
 txtgrn='\e[0;32m' # Green
 txtylw='\e[0;33m' # Yellow
 txtblu='\e[0;34m' # Blue
@@ -67,7 +68,7 @@ alias ls='ls -Gp'
 
 # Custom aliases
 alias reload="source ~/.bashrc && source ~/.bash_profile"
-alias ls='ls -hp --group-directories-first --color=auto'
+alias ls='gls -hp --group-directories-first --color=auto'
 alias ll='pwd && ls -l'
 alias la='ls -la'
 alias l='ls -CF'
@@ -97,7 +98,7 @@ alias grep="grep -i --color"
 alias tfi="MSYS_NO_PATHCONV=1 tf import"
 alias azl="az login --use-device-code"
 alias azs="az account set --subscription"
-
+alias rust-stakeholder="rust-stakeholder --dev-type fullstack --complexity extreme --alerts --framework 'Custom Engine'"
 function awsprofile {
         export AWS_PROFILE=$1
 }
@@ -115,12 +116,25 @@ eval "$(starship init bash)"
 alias assume="source assume"
 complete -C aws_completer aws
 
-# Kubectl shell completion
-source ~/.kube/completion.bash.inc
-
-source /usr/share/bash-completion//bash_completion
 source <(kubectl completion bash)
 complete -o default -F __start_kubectl k
 
 export PATH="$HOME/.local/bin:$PATH"
 
+#[[ -r "/opt/homebrew/etc/profile.d/bash_completion.sh" ]] && . "/opt/homebrew/etc/profile.d/bash_completion.sh"
+export PATH="/opt/homebrew/opt/go@1.20/bin:$PATH"
+
+# Some history settings
+# removes all duplicates
+export HISTCONTROL="erasedups:ignoreboth"
+export HISTFILESIZE=500000
+export HISTSIZE=100000
+# dont remember exit commands
+export HISTIGNORE="&:[ ]*:exit"
+# append history with every fresh session
+shopt -s histappend 
+# save multiline commands as a single command
+shopt -s cmdhist
+
+
+. "$HOME/.cargo/env"
